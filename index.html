@@ -46,37 +46,59 @@
         />
       </div>
       
-      <label for="categoryFilter">Category:</label>
-      <select id="categoryFilter">
-        <option value="">All Categories</option>
-        <option value="Communication">Communication</option>
-        <option value="Productivity">Productivity</option>
-        <option value="Development">Development</option>
-        <option value="Sales">Sales</option>
-        <option value="Marketing">Marketing</option>
-        <option value="HR">HR</option>
-        <option value="Finance">Finance</option>
-      </select>
+      <div class="filter-group">
+        <label for="categoryFilter">Category:</label>
+        <div class="custom-select" data-target="categoryFilter">
+          <div class="select-selected">All Categories</div>
+          <div class="select-items select-hide">
+            <div data-value="">All Categories</div>
+            <div data-value="Communication">Communication</div>
+            <div data-value="Productivity">Productivity</div>
+            <div data-value="Development">Development</div>
+            <div data-value="Sales">Sales</div>
+            <div data-value="Marketing">Marketing</div>
+            <div data-value="HR">HR</div>
+            <div data-value="Finance">Finance</div>
+          </div>
+        </div>
+        <input type="hidden" id="categoryFilter" value="">
+      </div>
 
-      <label for="departmentFilter">Department:</label>
-      <select id="departmentFilter">
-        <option value="">All Departments</option>
-        <option value="Engineering">Engineering</option>
-        <option value="Marketing">Marketing</option>
-        <option value="Sales">Sales</option>
-        <option value="HR">HR</option>
-        <option value="Finance">Finance</option>
-      </select>
+      <div class="filter-group">
+        <label for="departmentFilter">Department:</label>
+        <div class="custom-select" data-target="departmentFilter">
+          <div class="select-selected">All Departments</div>
+          <div class="select-items select-hide">
+            <div data-value="">All Departments</div>
+            <div data-value="Engineering">Engineering</div>
+            <div data-value="Marketing">Marketing</div>
+            <div data-value="Sales">Sales</div>
+            <div data-value="HR">HR</div>
+            <div data-value="Finance">Finance</div>
+          </div>
+        </div>
+        <input type="hidden" id="departmentFilter" value="">
+      </div>
 
-      <label for="sortFilter">Sort by:</label>
-      <select id="sortFilter">
-        <option value="name">Name</option>
-        <option value="popularity">Most Popular</option>
-        <option value="rating">Highest Rated</option>
-        <option value="recent">Recently Added</option>
-      </select>
+      <div class="filter-group">
+        <label for="sortFilter">Sort by:</label>
+        <div class="custom-select" data-target="sortFilter">
+          <div class="select-selected">Name</div>
+          <div class="select-items select-hide">
+            <div data-value="name">Name</div>
+            <div data-value="popularity">Most Popular</div>
+            <div data-value="rating">Highest Rated</div>
+            <div data-value="recent">Recently Added</div>
+          </div>
+        </div>
+        <input type="hidden" id="sortFilter" value="name">
+      </div>
       
-      <button id="myAppsBtn">My Apps</button>
+      <div class="view-buttons">
+        <button id="allAppsBtn" class="view-btn active">All Apps</button>
+        <button id="myAppsBtn" class="view-btn">My Apps</button>
+        <button id="pendingAppsBtn" class="view-btn">Pending Requests</button>
+      </div>
     </div>
 
     <!-- Personalized Recommendations -->
@@ -85,7 +107,11 @@
       <div id="recommendations-grid" class="grid"></div>
     </div>
 
-    <div id="app-grid" class="grid"></div>
+    <!-- Main Apps Section -->
+    <div class="main-apps-section">
+      <h2 id="mainSectionTitle">All Apps</h2>
+      <div id="app-grid" class="grid"></div>
+    </div>
   </main>
 
   <!-- App Detail Modal -->
