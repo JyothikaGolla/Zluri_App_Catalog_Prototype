@@ -509,7 +509,7 @@ body {
   position: relative;
   font-family: inherit;
   width: 100%;
-  z-index: 1;
+  z-index: 1000;
 }
 
 /* Ensure proper stacking order for filter groups */
@@ -527,7 +527,15 @@ body {
 
 /* When dropdown is active, increase z-index significantly */
 .custom-select.active {
-  z-index: 10000 !important;
+  z-index: 100000 !important;
+  position: relative;
+}
+
+/* Force dropdown items to be on top of everything */
+.custom-select.active .select-items {
+  z-index: 100001 !important;
+  position: fixed;
+  transform: translateY(0);
 }
 
 .select-selected {
@@ -589,7 +597,7 @@ body {
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 99999 !important;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   border: 2px solid #0f4c81;
@@ -984,19 +992,24 @@ button.request-btn.approved {
   
   /* Mobile-specific dropdown fixes */
   .custom-select {
-    z-index: 1;
+    z-index: 1000;
   }
   
   .custom-select.active {
-    z-index: 10000 !important;
+    z-index: 100000 !important;
     position: relative;
   }
   
   .select-items {
-    z-index: 10001 !important;
-    position: absolute;
-    width: 100%;
+    z-index: 100001 !important;
     max-height: 200px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+    border: 2px solid #0f4c81 !important;
+  }
+  
+  .select-items.show {
+    position: fixed !important;
+    z-index: 100001 !important;
   }
   
   .filter-group {

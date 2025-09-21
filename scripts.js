@@ -738,6 +738,14 @@ function initCustomDropdowns() {
       
       // If this dropdown was closed, open it
       if (!isOpen) {
+        // Calculate position for fixed positioning
+        const rect = selected.getBoundingClientRect();
+        items.style.position = 'fixed';
+        items.style.top = `${rect.bottom + 4}px`;
+        items.style.left = `${rect.left}px`;
+        items.style.width = `${rect.width}px`;
+        items.style.zIndex = '100001';
+        
         items.classList.remove('select-hide');
         items.classList.add('show');
         selected.classList.add('select-arrow-active');
@@ -763,6 +771,12 @@ function initCustomDropdowns() {
         this.classList.add('same-as-selected');
         
         // Close dropdown
+        items.style.position = 'absolute';
+        items.style.top = '100%';
+        items.style.left = '0';
+        items.style.width = '100%';
+        items.style.zIndex = '';
+        
         items.classList.add('select-hide');
         items.classList.remove('show');
         selected.classList.remove('select-arrow-active');
@@ -781,6 +795,22 @@ function initCustomDropdowns() {
   document.addEventListener('click', function(e) {
     closeAllSelect();
   });
+  
+  // Reposition dropdowns on window resize
+  window.addEventListener('resize', function() {
+    const openDropdowns = document.querySelectorAll('.custom-select.active');
+    openDropdowns.forEach(select => {
+      const selected = select.querySelector('.select-selected');
+      const items = select.querySelector('.select-items');
+      
+      if (items.classList.contains('show')) {
+        const rect = selected.getBoundingClientRect();
+        items.style.top = `${rect.bottom + 4}px`;
+        items.style.left = `${rect.left}px`;
+        items.style.width = `${rect.width}px`;
+      }
+    });
+  });
 }
 
 function closeAllSelect(elmnt) {
@@ -792,6 +822,13 @@ function closeAllSelect(elmnt) {
     
     // If clicking outside this select or elmnt is not provided, close it
     if (!elmnt || !select.contains(elmnt)) {
+      // Reset position styles
+      items.style.position = 'absolute';
+      items.style.top = '100%';
+      items.style.left = '0';
+      items.style.width = '100%';
+      items.style.zIndex = '';
+      
       items.classList.add('select-hide');
       items.classList.remove('show');
       selected.classList.remove('select-arrow-active');
