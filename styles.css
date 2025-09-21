@@ -512,6 +512,24 @@ body {
   z-index: 1;
 }
 
+/* Ensure proper stacking order for filter groups */
+.filter-group:nth-child(1) .custom-select {
+  z-index: 1003;
+}
+
+.filter-group:nth-child(2) .custom-select {
+  z-index: 1002;
+}
+
+.filter-group:nth-child(3) .custom-select {
+  z-index: 1001;
+}
+
+/* When dropdown is active, increase z-index significantly */
+.custom-select.active {
+  z-index: 10000 !important;
+}
+
 .select-selected {
   background: white;
   padding: 0.75rem 2.5rem 0.75rem 1rem;
@@ -962,6 +980,28 @@ button.request-btn.approved {
   
   .view-btn {
     text-align: center;
+  }
+  
+  /* Mobile-specific dropdown fixes */
+  .custom-select {
+    z-index: 1;
+  }
+  
+  .custom-select.active {
+    z-index: 10000 !important;
+    position: relative;
+  }
+  
+  .select-items {
+    z-index: 10001 !important;
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+  }
+  
+  .filter-group {
+    position: relative;
+    z-index: 1;
   }
 }
 

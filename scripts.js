@@ -741,6 +741,7 @@ function initCustomDropdowns() {
         items.classList.remove('select-hide');
         items.classList.add('show');
         selected.classList.add('select-arrow-active');
+        select.classList.add('active'); // Add active class for z-index
       }
     });
     
@@ -765,6 +766,7 @@ function initCustomDropdowns() {
         items.classList.add('select-hide');
         items.classList.remove('show');
         selected.classList.remove('select-arrow-active');
+        select.classList.remove('active'); // Remove active class
         
         // Trigger change event
         const changeEvent = new Event('change', { bubbles: true });
@@ -793,6 +795,7 @@ function closeAllSelect(elmnt) {
       items.classList.add('select-hide');
       items.classList.remove('show');
       selected.classList.remove('select-arrow-active');
+      select.classList.remove('active'); // Remove active class when closing
     }
   });
 }
