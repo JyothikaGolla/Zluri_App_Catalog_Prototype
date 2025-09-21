@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zluri Employee App Catalog</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="logo.png" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">Zluri App Catalog</div>
+    <div class="user-info">
+      <span id="userRole">Product Manager</span>
+      <span id="userName">John Doe</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Discover Applications for Your Organization</h1>
+    
+    <!-- Quick Stats Dashboard -->
+    <div class="stats-dashboard">
+      <div class="stat-card">
+        <div class="stat-number" id="totalApps">0</div>
+        <div class="stat-label">Available Apps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="myAppsCount">0</div>
+        <div class="stat-label">My Apps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="pendingRequests">0</div>
+        <div class="stat-label">Pending Requests</div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Search apps by name..."
+        />
+      </div>
+      
+      <label for="categoryFilter">Category:</label>
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="Communication">Communication</option>
+        <option value="Productivity">Productivity</option>
+        <option value="Development">Development</option>
+        <option value="Sales">Sales</option>
+        <option value="Marketing">Marketing</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+      </select>
+
+      <label for="departmentFilter">Department:</label>
+      <select id="departmentFilter">
+        <option value="">All Departments</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Sales">Sales</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+      </select>
+
+      <label for="sortFilter">Sort by:</label>
+      <select id="sortFilter">
+        <option value="name">Name</option>
+        <option value="popularity">Most Popular</option>
+        <option value="rating">Highest Rated</option>
+        <option value="recent">Recently Added</option>
+      </select>
+      
+      <button id="myAppsBtn">My Apps</button>
+    </div>
+
+    <!-- Personalized Recommendations -->
+    <div id="recommendations" class="recommendations-section" style="display: none;">
+      <h2>Recommended for You</h2>
+      <div id="recommendations-grid" class="grid"></div>
+    </div>
+
+    <div id="app-grid" class="grid"></div>
+  </main>
+
+  <!-- App Detail Modal -->
+  <div id="appModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

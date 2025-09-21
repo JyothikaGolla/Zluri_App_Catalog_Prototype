@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# VSCode files
+.vscode/
+
+# npm debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+Zluri_Employee_App_Catalog_Case_Study.md

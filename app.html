@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Details</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">Zluri Catalog</div>
+    <nav class="nav">
+      <button id="backBtn">Back to Catalog</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 id="app-name">App Name</h2>
+    <p id="app-desc">App description goes here.</p>
+    <p id="app-category">Category: </p>
+    <button id="request-btn">Request Access</button>
+  </main>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const appId = urlParams.get('id');
+
+    async function fetchApp() {
+      if (!appId) return;
+
+      // fetch app details
+      const res = await fetch(`https://zlulri-app-prototype.onrender.com/api/apps/${appId}`);
+      const app = await res.json();
+
+      document.getElementById('app-name').textContent = app.name;
+      document.getElementById('app-desc').textContent = app.description;
+      document.getElementById('app-category').textContent = 'Category: ' + app.category;
+
+      const requestBtn = document.getElementById('request-btn');
+
+      // check if already requested
+      const reqRes = await fetch(`https://zlulri-app-prototype.onrender.com/api/requests?userId=1`);
+
+      const requests = await reqRes.json();
+      const existingRequest = requests.find(r => r.appId === app._id && r.status === "Pending");
+
+      if (existingRequest) {
+        requestBtn.textContent = "Pending";
+        requestBtn.disabled = true;
+      }
+
+      // back button
+      document.getElementById('backBtn').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+
+      // request button
+      requestBtn.addEventListener('click', async () => {
+        const response = await fetch('https://zlulri-app-prototype.onrender.com/api/requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: '1', appId: app._id, status: 'Pending' })
+        });
+        const data = await response.json();
+        alert(data.message);
+
+        // update UI immediately
+        requestBtn.textContent = "Pending";
+        requestBtn.disabled = true;
+      });
+    }
+
+    fetchApp();
+  </script>
+</body>
+</html>

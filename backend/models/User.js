@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  userId: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  role: { type: String, required: true },
+  department: { type: String, required: true },
+  manager: { type: String },
+  isActive: { type: Boolean, default: true },
+  joinDate: { type: Date, default: Date.now },
+  lastLogin: { type: Date },
+  appsAssigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'App' }]
+}, {
+  timestamps: true
+});
+
+module.exports = mongoose.model('User', userSchema);
