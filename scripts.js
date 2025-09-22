@@ -727,21 +727,33 @@ function initCustomDropdowns() {
     const hiddenInput = document.getElementById(select.dataset.target);
     
     // Toggle dropdown on click
-    selected.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if (!items.classList.contains('show')) {
-        closeAllSelect();
-        items.style.position = 'absolute';
-        items.style.top = '100%';
-        items.style.left = '0';
-        items.style.width = '100%';
-        items.style.zIndex = '100001';
-        items.classList.remove('select-hide');
-        items.classList.add('show');
-        selected.classList.add('select-arrow-active');
-        select.classList.add('active');
-      }
-    });
+      selected.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (items.classList.contains('show')) {
+          // Close dropdown
+          items.style.position = 'absolute';
+          items.style.top = '100%';
+          items.style.left = '0';
+          items.style.width = '100%';
+          items.style.zIndex = '';
+          items.classList.add('select-hide');
+          items.classList.remove('show');
+          selected.classList.remove('select-arrow-active');
+          select.classList.remove('active');
+        } else {
+          // Open dropdown
+          closeAllSelect();
+          items.style.position = 'absolute';
+          items.style.top = '100%';
+          items.style.left = '0';
+          items.style.width = '100%';
+          items.style.zIndex = '100001';
+          items.classList.remove('select-hide');
+          items.classList.add('show');
+          selected.classList.add('select-arrow-active');
+          select.classList.add('active');
+        }
+      });
     
     // Handle option selection
     const options = items.querySelectorAll('div');
