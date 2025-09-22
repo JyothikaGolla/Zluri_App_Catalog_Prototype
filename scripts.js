@@ -727,33 +727,23 @@ function initCustomDropdowns() {
     const hiddenInput = document.getElementById(select.dataset.target);
     
     // Toggle dropdown on click
-      selected.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (items.classList.contains('show')) {
-          // Close dropdown
-          items.style.position = 'absolute';
-          items.style.top = '100%';
-          items.style.left = '0';
-          items.style.width = '100%';
-          items.style.zIndex = '';
-          items.classList.add('select-hide');
-          items.classList.remove('show');
-          selected.classList.remove('select-arrow-active');
-          select.classList.remove('active');
-        } else {
-          // Open dropdown
-          closeAllSelect();
-          items.style.position = 'absolute';
-          items.style.top = '100%';
-          items.style.left = '0';
-          items.style.width = '100%';
-          items.style.zIndex = '100001';
-          items.classList.remove('select-hide');
-          items.classList.add('show');
-          selected.classList.add('select-arrow-active');
-          select.classList.add('active');
-        }
-      });
+    selected.addEventListener('click', function(e) {
+      e.stopPropagation();
+      
+      // Check if this dropdown is currently open
+      const isOpen = items.classList.contains('show');
+      
+      // Close all dropdowns first
+      closeAllSelect();
+      
+      // If this dropdown wasn't open, open it
+      if (!isOpen) {
+        items.classList.remove('select-hide');
+        items.classList.add('show');
+        selected.classList.add('select-arrow-active');
+        select.classList.add('active');
+      }
+    });
     
     // Handle option selection
     const options = items.querySelectorAll('div');
@@ -773,16 +763,10 @@ function initCustomDropdowns() {
         this.classList.add('same-as-selected');
         
         // Close dropdown
-        items.style.position = 'absolute';
-        items.style.top = '100%';
-        items.style.left = '0';
-        items.style.width = '100%';
-        items.style.zIndex = '';
-        
         items.classList.add('select-hide');
         items.classList.remove('show');
         selected.classList.remove('select-arrow-active');
-        select.classList.remove('active'); // Remove active class
+        select.classList.remove('active');
         
         // Trigger change event
         const changeEvent = new Event('change', { bubbles: true });
@@ -795,48 +779,29 @@ function initCustomDropdowns() {
   
   // Close dropdowns when clicking outside
   document.addEventListener('click', function(e) {
-    closeAllSelect();
-  });
-  
-  // Reposition dropdowns on window resize
-  window.addEventListener('resize', function() {
-    repositionDropdowns();
-  });
-}
-
-function repositionDropdowns() {
-  document.querySelectorAll('.custom-select.active').forEach(select => {
-    const items = select.querySelector('.select-items');
-    if (items.classList.contains('show')) {
-      items.style.position = 'absolute';
-      items.style.top = '100%';
-      items.style.left = '0';
-      items.style.width = '100%';
+    // Check if click is outside all custom selects
+    const isClickInsideDropdown = Array.from(customSelects).some(select => 
+      select.contains(e.target)
+    );
+    
+    if (!isClickInsideDropdown) {
+      closeAllSelect();
     }
   });
 }
 
-function closeAllSelect(elmnt) {
+function closeAllSelect() {
   const customSelects = document.querySelectorAll('.custom-select');
   
   customSelects.forEach(select => {
     const selected = select.querySelector('.select-selected');
     const items = select.querySelector('.select-items');
     
-    // If clicking outside this select or elmnt is not provided, close it
-    if (!elmnt || !select.contains(elmnt)) {
-      // Reset position styles
-      items.style.position = 'absolute';
-      items.style.top = '100%';
-      items.style.left = '0';
-      items.style.width = '100%';
-      items.style.zIndex = '';
-      
-      items.classList.add('select-hide');
-      items.classList.remove('show');
-      selected.classList.remove('select-arrow-active');
-      select.classList.remove('active'); // Remove active class when closing
-    }
+    // Only use CSS classes, no inline styles
+    items.classList.add('select-hide');
+    items.classList.remove('show');
+    selected.classList.remove('select-arrow-active');
+    select.classList.remove('active');
   });
 }
 
