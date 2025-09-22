@@ -729,27 +729,17 @@ function initCustomDropdowns() {
     // Toggle dropdown on click
     selected.addEventListener('click', function(e) {
       e.stopPropagation();
-      
-      // Check if this dropdown is currently open
-      const isOpen = items.classList.contains('show');
-      
-      // Close all dropdowns first
-      closeAllSelect();
-      
-      // If this dropdown was closed, open it
-      if (!isOpen) {
-        // Calculate position for fixed positioning
-        const rect = selected.getBoundingClientRect();
-        items.style.position = 'fixed';
-        items.style.top = `${rect.bottom + 4}px`;
-        items.style.left = `${rect.left}px`;
-        items.style.width = `${rect.width}px`;
+      if (!items.classList.contains('show')) {
+        closeAllSelect();
+        items.style.position = 'absolute';
+        items.style.top = '100%';
+        items.style.left = '0';
+        items.style.width = '100%';
         items.style.zIndex = '100001';
-        
         items.classList.remove('select-hide');
         items.classList.add('show');
         selected.classList.add('select-arrow-active');
-        select.classList.add('active'); // Add active class for z-index
+        select.classList.add('active');
       }
     });
     
@@ -798,18 +788,19 @@ function initCustomDropdowns() {
   
   // Reposition dropdowns on window resize
   window.addEventListener('resize', function() {
-    const openDropdowns = document.querySelectorAll('.custom-select.active');
-    openDropdowns.forEach(select => {
-      const selected = select.querySelector('.select-selected');
-      const items = select.querySelector('.select-items');
-      
-      if (items.classList.contains('show')) {
-        const rect = selected.getBoundingClientRect();
-        items.style.top = `${rect.bottom + 4}px`;
-        items.style.left = `${rect.left}px`;
-        items.style.width = `${rect.width}px`;
-      }
-    });
+    repositionDropdowns();
+  });
+}
+
+function repositionDropdowns() {
+  document.querySelectorAll('.custom-select.active').forEach(select => {
+    const items = select.querySelector('.select-items');
+    if (items.classList.contains('show')) {
+      items.style.position = 'absolute';
+      items.style.top = '100%';
+      items.style.left = '0';
+      items.style.width = '100%';
+    }
   });
 }
 
